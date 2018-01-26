@@ -14,15 +14,12 @@
 <title>ME - Lee Seong Soo</title>
 <!-- Behavioral Meta Data -->
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="icon" type="image/png" href="img/small-logo-01.png">
-<link
-	href='http://fonts.googleapis.com/css?family=Roboto:400,900,900italic,700italic,700,500italic,400italic,500,300italic,300'
-	rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Pacifico'
-	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,900,900italic,700italic,700,500italic,400italic,500,300italic,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 <link href='style.css' rel='stylesheet' type='text/css'>
+<script src="https://use.fontawesome.com/9a677a982f.js"></script>
 </head>
 <body>
 	<a name="ancre"></a>
@@ -142,7 +139,7 @@
 					<figure class="white">
 						<a
 							onclick="javascript:window.open('count.jsp?index=<%=vlist.get(i).getIdx()%>');"
-							href="<%=vlist.get(i).getUrl()%>"> <img src="img/pic/<%=vlist.get(i).getMainpic()%>" alt="" />
+							href="<%=vlist.get(i).getUrl()%>" target="_blank"> <img src="img/pic/<%=vlist.get(i).getMainpic()%>" alt="" />
 							<dl>
 								<dt><%=vlist.get(i).getTitle()%></dt>
 								<dd><%=vlist.get(i).getContent()%></dd>
@@ -237,13 +234,18 @@
 				</div>
 
 				<div class="wrapper-navbouton">
-					<a href="https://plus.google.com/u/0/105120990146838786351"><div
-							class="google object">g</div></a> <a href="#"><div
-							class="facebook object">f</div></a> <a
-						href="https://www.linkedin.com/in/%EC%84%B1%EC%88%98-%EC%9D%B4-589582126/"><div
-							class="linkin object">i</div></a> <a
-						href="https://www.youtube.com/channel/UCPcgjmoBF7FcSfRXgsFCXtQ"><div
-							class="dribbble object">x</div></a>
+					<a href="https://plus.google.com/u/0/105120990146838786351">
+					<div class="facebook object"><i class="fa fa-google-plus-official" aria-hidden="true"></i></div>
+					</a> 
+					<a href="https://www.linkedin.com/in/%EC%84%B1%EC%88%98-%EC%9D%B4-589582126/">
+					<div class="facebook object"><i class="fa fa-linkedin-square" aria-hidden="true"></i></div>
+					</a> 
+					<a href="https://www.youtube.com/channel/UCPcgjmoBF7FcSfRXgsFCXtQ">
+					<div class="facebook object"><i class="fa fa-youtube-play" aria-hidden="true"></i></div>
+					</a>
+					<a href="https://github.com/Soo92">
+					<div class="facebook object"><i class="fa fa-github" aria-hidden="true"></i></div>
+					</a> 
 				</div>
 			</div>
 		</div>
@@ -253,8 +255,7 @@
 		src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="js/jquery.localScroll.min.js"></script>
-	<script type="text/javascript"
-		src="js/jquery-animate-css-rotate-scale.js"></script>
+	<script type="text/javascript" src="js/jquery-animate-css-rotate-scale.js"></script>
 	<script type="text/javascript" src="js/fastclick.min.js"></script>
 	<script type="text/javascript" src="js/jquery.animate-colors-min.js"></script>
 	<script type="text/javascript" src="js/jquery.animate-shadow-min.js"></script>

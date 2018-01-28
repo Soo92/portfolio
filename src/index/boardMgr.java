@@ -6,28 +6,27 @@ import java.sql.ResultSet;
 import java.util.Vector;
 
 
-public class detailMgr {
+public class boardMgr {
 	
 	private DBConnectionMgr pool;
 	
-	public detailMgr() {
+	public boardMgr() {
 		pool = DBConnectionMgr.getInstance();
 	}
 	
-	public boolean insertMember(detailBean bean) {
+	public boolean insertReple(boardBean bean) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "insert main_detail(idx,pic,parent,file)"
-					+ "values(?,?,?,?)";
+			sql = "insert main_reple(writer,content,parent)"
+					+ "values(?,?,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, bean.getIdx());
-			pstmt.setString(2, bean.getPic());
+			pstmt.setString(1, bean.getWriter());
+			pstmt.setString(2, bean.getContent());
 			pstmt.setInt(3, bean.getParent());
-			pstmt.setString(4, bean.getFile());
 			if(pstmt.executeUpdate()==1)
 				flag = true;
 		} catch (Exception e) {
@@ -37,14 +36,14 @@ public class detailMgr {
 		}
 		return flag;
 	}
-	public boolean deleteClient(int idx) {
+	public boolean deleteReple(int idx) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "delete from main_detail where idx = ?";
+			sql = "delete from main_reple where idx = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			if(pstmt.executeUpdate()==1)
@@ -56,23 +55,23 @@ public class detailMgr {
 		}
 		return flag;
 	}
-	public detailBean getMember(int idx) {
+	public boardBean getReple(int idx) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		detailBean regBean = new detailBean();
+		boardBean regBean = new boardBean();
 		try {
 			con = pool.getConnection();
-			sql = "select * from main_detail where parent=?";
+			sql = "select * from main_reple where idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				regBean.setIdx(rs.getInt("idx"));
-				regBean.setPic(rs.getString("pic"));
+				regBean.setWriter(rs.getString("writer"));
+				regBean.setContent(rs.getString("content"));
 				regBean.setParent(rs.getInt("parent"));
-				regBean.setFile(rs.getString("file"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,23 +80,24 @@ public class detailMgr {
 		}
 		return regBean;
 	}
-	public Vector<detailBean> getCartList() {
+	public Vector<boardBean> getRepleList(int parent) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		Vector<detailBean> vlist = new Vector<>();
+		Vector<boardBean> vlist = new Vector<>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from main_detail order by view";
+			sql = "select * from main_reple where parent = ? order by idx desc";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, parent);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				detailBean regBean = new detailBean();
+				boardBean regBean = new boardBean();
 				regBean.setIdx(rs.getInt("idx"));
-				regBean.setPic(rs.getString("pic"));
+				regBean.setWriter(rs.getString("writer"));
+				regBean.setContent(rs.getString("content"));
 				regBean.setParent(rs.getInt("parent"));
-				regBean.setFile(rs.getString("file"));
 				vlist.addElement(regBean);
 			}
 		} catch (Exception e) {

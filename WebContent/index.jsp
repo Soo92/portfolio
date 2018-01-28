@@ -32,13 +32,6 @@
 				<img src="img/logo-burst.png" alt="logo platz" height="38"
 					width="90">
 			</div>
-			<div id="main_tip_search">
-				<form>
-					<input type="text" name="search" id="tip_search_input"
-						list="search" autocomplete=off required>
-				</form>
-			</div>
-			<div id="stripes"></div>
 		</div>
 	</div>
 	<!-- NAVBAR -->
@@ -48,16 +41,6 @@
 				<div id="wrapper-title-1">
 					<div class="top-rated object">Top-rated</div>
 					<div id="fleche-nav-1"></div>
-				</div>
-
-				<div id="wrapper-title-2">
-					<a href="#"><div class="recent object">Recent</div></a>
-					<div id="fleche-nav-2"></div>
-				</div>
-
-				<div id="wrapper-title-3">
-					<a href="#"><div class="oldies object">Oldies</div></a>
-					<div id="fleche-nav-3"></div>
 				</div>
 			</div>
 			<div id="wrapper-bouton-icon">
@@ -147,10 +130,16 @@
 						</a>
 						<div id="wrapper-part-info">
 							<div class="part-info-image">
-								<img class="sel_tar" src="img/pic/<%=vlist.get(i).getIcon()%>" alt=""
-									width="28" height="28" />
+								<img class="sel_tar" src="img/pic/<%=vlist.get(i).getIcon()%>" alt="" width="28" height="28" />
 							</div>
 							<div id="part-info"><%=vlist.get(i).getTitle()%></div>
+					<%if(mgr.hasDetail(vlist.get(i).getIdx())) {%>
+							<div class="part-info-image">
+								<a href="detail.jsp?index=<%=vlist.get(i).getIdx()%>">
+									<img class="sel_tar" src="img/pic/more.png" style="width:28px"/>
+								</a>
+							</div>
+					<%} %>
 						</div>
 					</figure>
 					<%
@@ -178,54 +167,6 @@
 				<div class="thank-text">ME</div>
 			</div>
 		</div>
-
-		<div id="main-container-footer">
-			<div class="container-footer">
-
-				<div id="row-1f">
-					<div class="text-row-1f">
-						<span
-							style="font-weight: 600; font-size: 15px; color: #666; line-height: 250%; text-transform: uppercase; letter-spacing: 1.5px;">What
-							is ME</span><br>ME is a team <br> do whatever,<br> with
-						whoever.
-					</div>
-				</div>
-
-				<div id="row-2f">
-					<div class="text-row-2f">
-						<span
-							style="font-weight: 600; font-size: 15px; color: #666; line-height: 250%; text-transform: uppercase; letter-spacing: 1.5px;">ME
-							work</span><br>ME enjoy all project with you.<br>Awesome Funny
-						with ME
-					</div>
-				</div>
-
-				<div id="row-3f">
-					<div class="text-row-3f">
-						<span
-							style="font-weight: 600; font-size: 15px; color: #666; line-height: 250%; text-transform: uppercase; letter-spacing: 1.5px;">Get
-							in touch!</span><br>Subscribe follow ME on YouTube, Google+.
-					</div>
-				</div>
-
-				<div id="row-4f">
-					<div class="text-row-4f">
-						<span
-							style="font-weight: 600; font-size: 15px; color: #666; line-height: 250%; text-transform: uppercase; letter-spacing: 1.5px;">Newsletter</span><br>You
-						will be informed monthly about the latest content avalaible.
-					</div>
-					<div id="main_tip_newsletter">
-						<form>
-							<input type="text" name="newsletter" id="tip_newsletter_input"
-								list="newsletter" autocomplete=off required>
-						</form>
-					</div>
-				</div>
-
-			</div>
-		</div>
-
-
 		<div id="wrapper-copyright">
 			<div class="copyright">
 				<div class="copy-text object">
@@ -251,8 +192,7 @@
 		</div>
 	</div>
 	<!-- SCRIPT -->
-	<script
-		src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="js/jquery.localScroll.min.js"></script>
 	<script type="text/javascript" src="js/jquery-animate-css-rotate-scale.js"></script>

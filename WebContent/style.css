@@ -399,7 +399,7 @@ body,html{
 
 #part-info{
 	float:left;
-	width:calc(100% - 53px);
+	width:calc(100% - 120px);
 	text-align:left;
 	line-height:44px;
 	font-family: Helvetica, sans-serif;
@@ -532,9 +532,9 @@ body,html{
 
 }
 
-#row-1f,#row-2f,#row-3f,#row-4f{
+#row-1f,#row-2f,#row-3f{
 	float:left;
-	width:calc(100% / 4);
+	width:calc(100% / 3);
 	height:auto;
 }
 

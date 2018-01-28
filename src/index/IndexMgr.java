@@ -7,6 +7,23 @@ import java.util.Vector;
 
 
 public class IndexMgr {
+	public static void main(String[] args) {
+		for(int i=0;i<15;i++) {
+			System.out.print("barcode"+(i+1)+".JPG"+",");
+		}
+		System.out.println("");
+		for(int i=1;i<4;i++) {
+			System.out.print("cons"+(i+1)+".PNG"+",");
+		}
+		System.out.println("");
+		for(int i=1;i<7;i++) {
+			System.out.print("dalza"+(i+1)+".PNG"+",");
+		}
+		System.out.println("");
+		for(int i=1;i<9;i++) {
+			System.out.print("hotel"+(i+1)+".JPG"+",");
+		}
+	}
 	
 	private DBConnectionMgr pool;
 	
@@ -14,6 +31,26 @@ public class IndexMgr {
 		pool = DBConnectionMgr.getInstance();
 	}
 	
+	public boolean hasDetail(int idx) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "select idx from main_detail where parent=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			flag = rs.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return flag;
+	}
 	public boolean insertMember(IndexBean bean) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -119,6 +156,38 @@ public class IndexMgr {
 			con = pool.getConnection();
 			sql = "select * from main_index order by view desc";
 			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				IndexBean regBean = new IndexBean();
+				regBean.setIdx(rs.getInt("idx"));
+				regBean.setTitle(rs.getString("title"));
+				regBean.setMainpic(rs.getString("mainpic"));
+				regBean.setRegdate(rs.getString("regdate"));
+				regBean.setUrl(rs.getString("url"));
+				regBean.setView(rs.getInt("view"));
+				regBean.setCate(rs.getString("cate"));
+				regBean.setIcon(rs.getString("icon"));
+				regBean.setContent(rs.getString("content"));
+				vlist.addElement(regBean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con);
+		}
+		return vlist;
+	}
+	public Vector<IndexBean> getCateList(String cate) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<IndexBean> vlist = new Vector<>();
+		try {
+			con = pool.getConnection();
+			sql = "select * from main_index where cate=? order by view desc ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, cate);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				IndexBean regBean = new IndexBean();

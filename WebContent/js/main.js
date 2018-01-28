@@ -75,14 +75,6 @@ $(document).on('touchend mouseout', '#stripes', function(event){
         }
 });
 
-/* MENU SIDE OPEN */
-
-var MENUSIDEOPEN = document.getElementById('stripes');
-
-MENUSIDEOPEN.addEventListener('click', function() {
-			   $("#main-container-menu").stop().animate({left:'0'},300);	
-}); 
-
 /* BOUTON CROSS */
 
 $(document).on('touchstart mouseover', '#cross-menu', function(event){

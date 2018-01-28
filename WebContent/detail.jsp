@@ -1,5 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@page import="index.boardBean"%>
+<%@page import="java.util.Vector"%>
+<%@page import="index.IndexBean"%>
+<%@page import="index.detailBean"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<jsp:useBean id="mgr" class="index.IndexMgr" />
+<jsp:useBean id="dmgr" class="index.detailMgr" />
+<jsp:useBean id="bmgr" class="index.boardMgr" />
+<%
+	String index = request.getParameter("index");
+	int idx = Integer.parseInt(index);
+	detailBean bean = dmgr.getMember(idx);
+	IndexBean pbean = mgr.getMember(idx);
+%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -7,14 +19,10 @@
 <title>Detailed Single Post</title>
 <!-- Behavioral Meta Data -->
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="icon" type="image/png" href="img/small-logo-01.png">
-<link
-	href='http://fonts.googleapis.com/css?family=Roboto:400,900,900italic,700italic,700,500italic,400italic,500,300italic,300'
-	rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Pacifico'
-	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,900,900italic,700italic,700,500italic,400italic,500,300italic,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 <style>
 /*-------------------------*/
 /* FONT BDD */
@@ -230,6 +238,7 @@ body, html {
 .container, .container-footer {
 	position: relative;
 	width: 1200px;
+	min-height: 800px;
 	margin-left: -600px;
 	left: 50%;
 }
@@ -325,7 +334,11 @@ body, html {
 }
 .part-info-image-single {
 	float: left;
-	margin-bottom: 17.5px;
+    max-width: 800px;
+    text-align: center;
+    margin: 17.5px 0;
+    height: 150px;
+    overflow: auto;
 }
 #wrapper-part-info .part-info-image img {
 	height: 20%;
@@ -336,7 +349,7 @@ body, html {
 	width: 20%;
 	right: 7.5%;
 	height: auto;
-	margin-top: 85px;
+	margin-top: 20px;
 }
 .wrapper-view, .wrapper-file, .wrapper-weight, .wrapper-desc,
 	.wrapper-download {
@@ -477,11 +490,12 @@ body, html {
 .post-reply, .post-reply-2 {
 	float: left;
 	width: 60%;
-	margin-left: 7.5%;
+	margin-left: 4.5%;
 	height: auto;
 }
 .post-reply {
 	margin-top: 50px;
+	margin-left: 4.5%;
 }
 .image-reply-post, .image-reply-post-2 {
 	float: left;
@@ -530,14 +544,14 @@ body, html {
 .post-send {
 	float: left;
 	width: 60%;
-	margin-left: 7.5%;
+	margin-left: 4.5%;
 	height: auto;
 	margin-bottom: 25px;
 }
 #main-post-send {
 	float: left;
 	width: calc(90% - 160px);
-	margin-left: 95px;
+	margin-left: 28px;
 	height: auto;
 	margin-top: 0px;
 }
@@ -559,7 +573,7 @@ textarea {
 	font-size: 16px;
 	font-weight: 400;
 	color: #999;
-	width: 320px;
+	width: 420px;
 	height: 150px;
 	background: #FFF;
 	outline: none;
@@ -596,8 +610,8 @@ fieldset {
 }
 textarea {
 	resize: vertical;
-	max-height: 100px;
-	min-height: 100px;
+	max-height: 50px;
+	min-height: 50px;
 }
 textarea {
 	color: #999;
@@ -1037,6 +1051,7 @@ textarea.placeholder {
 	}
 	.part-info-image-single {
 		float: left;
+	    max-width: 800px;
 		margin-bottom: 17px;
 	}
 	#wrapper-part-info .part-info-image img {
@@ -1085,6 +1100,7 @@ textarea.placeholder {
 	}
 	.part-info-image-single {
 		float: left;
+	    max-width: 800px;
 		margin-bottom: 15px;
 	}
 	#wrapper-part-info .part-info-image img {
@@ -1134,102 +1150,10 @@ textarea.placeholder {
 	<!-- HEADER -->
 	<div id="wrapper-header">
 		<div id="main-header" class="object">
-			<a href="index.jsp"><div id="logo">
-					<img src="img/logo-burst.svg" alt="logo burstfly" height="38"
-						width="90">
-				</div></a>
-			<div id="main_tip_search">
-				<form>
-					<input type="text" name="search" id="tip_search_input"
-						list="search" autocomplete=off required>
-				</form>
-			</div>
-			<div id="stripes"></div>
-		</div>
-	</div>
-	<!-- NAVBAR -->
-	<div id="wrapper-navbar">
-		<div class="navbar object">
-			<div id="wrapper-sorting">
-				<div id="wrapper-title-1">
-					<div class="top-rated object">Top-rated</div>
-					<div id="fleche-nav-1"></div>
-				</div>
-				<div id="wrapper-title-2">
-					<a href="#"><div class="recent object">Recent</div></a>
-					<div id="fleche-nav-2"></div>
-				</div>
-				<div id="wrapper-title-3">
-					<a href="#"><div class="oldies object">Oldies</div></a>
-					<div id="fleche-nav-3"></div>
-				</div>
-			</div>
-			<div id="wrapper-bouton-icon">
-				<div id="bouton-ai">
-					<img src="img/icon-ai.svg" alt="illustrator" title="Illustrator"
-						height="28" width="28">
-				</div>
-				<div id="bouton-psd">
-					<img src="img/icon-psd.svg" alt="photoshop" title="Photoshop"
-						height="28" width="28">
-				</div>
-				<div id="bouton-theme">
-					<img src="img/icon-themes.svg" alt="theme" title="Theme"
-						height="28" width="28">
-				</div>
-				<div id="bouton-font">
-					<img src="img/icon-font.svg" alt="font" title="Font" height="28"
-						width="28">
-				</div>
-				<div id="bouton-photo">
-					<img src="img/icon-photo.svg" alt="photo" title="Photo" height="28"
-						width="28">
-				</div>
-				<div id="bouton-premium">
-					<img src="img/icon-premium.svg" alt="premium" title="Premium"
-						height="28" width="28">
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- FILTER -->
-	<div id="main-container-menu" class="object">
-		<div class="container-menu">
-			<div id="main-cross">
-				<div id="cross-menu"></div>
-			</div>
-			<div id="main-small-logo">
-				<div class="small-logo"></div>
-			</div>
-			<div id="main-premium-ressource">
-				<div class="premium-ressource">
-					<a href="#">Premium Resources</a>
-				</div>
-			</div>
-			<div id="main-themes">
-				<div class="themes">
-					<a href="#">Latest themes</a>
-				</div>
-			</div>
-			<div id="main-psd">
-				<div class="psd">
-					<a href="#">PSD Goodies</a>
-				</div>
-			</div>
-			<div id="main-ai">
-				<div class="ai">
-					<a href="#">Illustrator freebies</a>
-				</div>
-			</div>
-			<div id="main-font">
-				<div class="font">
-					<a href="#">Free fonts</a>
-				</div>
-			</div>
-			<div id="main-photo">
-				<div class="photo">
-					<a href="#">Free stock photos</a>
-				</div>
+			<div class="logo">
+			<a href="./index.jsp">
+				<img src="img/logo-burst.png" alt="logo platz" width="90">
+			</a>	
 			</div>
 		</div>
 	</div>
@@ -1237,100 +1161,94 @@ textarea.placeholder {
 	<div id="wrapper-container">
 		<div class="container object">
 			<div id="main-container-image">
+				<a href="<%=pbean.getUrl()%>" target="_blank">
 				<div class="title-item">
-					<div class="title-icon"></div>
-					<div class="title-text">Ipad Pro Mockup</div>
-					<div class="title-text-2">Sept 25, 2015 by Onuur</div>
+					<div class="title-icon" style="background: url(img/pic/<%=pbean.getIcon()%>) no-repeat; background-size:68px;"></div>
+					<div class="title-text"><%=pbean.getTitle()%></div>
+					<div class="title-text-2">Since <%=pbean.getRegdate()%></div>
 				</div>
+				</a>
 				<div class="work">
-					<figure class="white">
-						<img src="img/psd-4.jpg" alt="" />
+					<figure class="white" style="text-align: center;">
+						<img id="demo-0" src="img/pic/<%=pbean.getMainpic() %>" style="max-width:1100px;"/> 
 						<div id="wrapper-part-info">
 							<div class="part-info-image-single">
-								<img src="img/mockup-1.jpg" alt="" width="628" height="437" /> <img
-									src="img/mockup-2.jpg" alt="" width="628" height="437" /> <img
-									src="img/mockup-3.jpg" alt="" width="628" height="437" />
+							<%String pic[] = bean.getPic().split(","); 
+							for(int i=0;i<pic.length;i++){%>
+								<img src="img/pic/<%=pic[i] %>" style="max-width: 250px;"/> 
+							<%} %>
 							</div>
 						</div>
 					</figure>
 					<div class="wrapper-text-description">
 						<div class="wrapper-view">
 							<div class="icon-view">
-								<img src="img/icon-eye.svg" alt="" width="24" height="16" />
+								<img src="img/icon-eye.svg" width="21" height="21"/>
 							</div>
-							<div class="text-view">2,451 views</div>
+							<div class="text-view"><%=pbean.getView()%> views</div>
 						</div>
 						<div class="wrapper-file">
 							<div class="icon-file">
-								<img src="img/icon-psdfile.svg" alt="" width="21" height="21" />
+								<img src="img/pic/<%=pbean.getIcon()%>" style="width: 21px;"/>
 							</div>
-							<div class="text-file">Photoshop</div>
-						</div>
-						<div class="wrapper-weight">
-							<div class="icon-weight">
-								<img src="img/icon-weight.svg" alt="" width="20" height="23" />
-							</div>
-							<div class="text-weight">23 Mo</div>
+							<div class="text-file"><%=pbean.getCate() %></div>
 						</div>
 						<div class="wrapper-desc">
 							<div class="icon-desc">
 								<img src="img/icon-desc.svg" alt="" width="24" height="24" />
 							</div>
-							<div class="text-desc">Lorem ipsum dolor sit amet,
-								consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-								Aenean massa. Cum sociis natoque penatibus et magnis dis
-								parturient montes, nascetur ridiculus mus. Donec quam felis,
-								ultricies nec, pellentesque eu, pretium quis, sem.</div>
+							<div class="text-desc"><%=pbean.getContent() %></div>
 						</div>
+						<%if(bean.getFile()!=null) {%>
 						<div class="wrapper-download">
 							<div class="icon-download">
 								<img src="img/icon-download.svg" alt="" width="19" height="26" />
 							</div>
 							<div class="text-download">
-								<a href="#"><b>Download</b></a>
+								<a href="<%=bean.getFile()%>" target="_blank"><b>Download</b></a>
 							</div>
 						</div>
+						<%} %>
+						<%Vector<IndexBean> clist = mgr.getCateList(pbean.getCate()); 
+							int a=1;
+							int b=0;
+							for(int i=0;i<clist.size();i++){
+								if(mgr.hasDetail(clist.get(i).getIdx())&&clist.get(i).getIdx()!=idx){
+									if(a==1){b=1;%>
 						<div class="wrapper-morefrom">
-							<div class="text-morefrom">More from .psd</div>
+							<div class="text-morefrom">More about <b><%=pbean.getCate() %></b></div>
 							<div class="image-morefrom">
-								<a href="#"><div class="image-morefrom-1">
-										<img src="img/psd-1.jpg" alt="" width="430" height="330" />
-									</div></a> <a href="#"><div class="image-morefrom-2">
-										<img src="img/psd-2.jpg" alt="" width="430" height="330" />
-									</div></a> <a href="#"><div class="image-morefrom-3">
-										<img src="img/psd-3.jpg" alt="" width="430" height="330" />
-									</div></a> <a href="#"><div class="image-morefrom-4">
-										<img src="img/psd-6.jpg" alt="" width="430" height="330" />
-									</div></a>
+						<%} %>
+								<a href="detail.jsp?index=<%=clist.get(i).getIdx()%>">
+									<div class="image-morefrom-<%=a%>">
+										<img src="img/pic/<%=clist.get(i).getMainpic() %>" alt="" width="430" height="330" />
+									</div>
+								</a> 
+						<%a++;}} if(b==1) {%>
 							</div>
 						</div>
+						<%} %>
 					</div>
-					<div class="post-reply">
+					<%Vector<boardBean> blist = bmgr.getRepleList(idx); 
+					for(int i=0;i<blist.size();i++){%>
+					<div class="post-reply<%if(i!=0){%>-2<%}%>">
 						<div class="image-reply-post"></div>
-						<div class="name-reply-post">Igor vlademir</div>
-						<div class="text-reply-post">Awesome mockup, i like it very
-							much ! It will help me for my website i was looking for since few
-							days. Thank you a lot.</div>
+						<div class="name-reply-post"><%=blist.get(i).getWriter() %></div>
+						<div class="text-reply-post"><%=blist.get(i).getContent() %></div>
 					</div>
-					<div class="post-reply-2">
-						<div class="image-reply-post-2"></div>
-						<div class="name-reply-post-2">Nathan Shaw</div>
-						<div class="text-reply-post-2">Well done ! I like the way
-							you did it. Awesome !</div>
-					</div>
+					<%} %>
 					<div class="post-send">
+						<div class="image-reply-post"></div>
 						<div id="main-post-send">
 							<div id="title-post-send">Add your comment</div>
-							<form id="contact" method="post"
-								action="/onclickprod/formsubmit_op.asp">
+							<form id="contact" method="post" action="./board_proc.jsp">
+								<input name="parent" type="hidden" value="<%=idx%>">
+								<input name="writer" type="text" placeholder="writer" style=" color: #999; width: 150px; height: 25px; border: solid 1px #DDDDDD; border-radius: 4px; padding-left: 10px; margin: -6px 0; font: 400 15.3333px Arial; ">
 								<fieldset>
-									<p>
-										<textarea id="message" name="message" maxlength="500"
-											placeholder="Votre Message" tabindex="5" cols="30" rows="4"></textarea>
-									</p>
+									<p><textarea id="message" name="content" maxlength="500" placeholder="Add Comment" tabindex="5" cols="30" rows="4"></textarea></p>
 								</fieldset>
 								<div style="text-align: center;">
-									<input type="submit" name="envoi" value="Envoyer" />
+									<input type="submit" name="envoi" value="Add" />
 								</div>
 							</form>
 						</div>
@@ -1340,64 +1258,29 @@ textarea.placeholder {
 		</div>
 		<div id="wrapper-thank">
 			<div class="thank">
-				<div class="thank-text">
-					bu<span style="letter-spacing: -5px;">rs</span>tfly
-				</div>
-			</div>
-		</div>
-		<div id="main-container-footer">
-			<div class="container-footer">
-				<div id="row-1f">
-					<div class="text-row-1f">
-						<span
-							style="font-weight: 600; font-size: 15px; color: #666; line-height: 250%; text-transform: uppercase; letter-spacing: 1.5px;">What
-							is Burstfly</span><br>Burstfly is just a blog showcasing
-						hand-picked free themes, design stuff, free fonts and other
-						resources for web designers.
-					</div>
-				</div>
-				<div id="row-2f">
-					<div class="text-row-2f">
-						<span
-							style="font-weight: 600; font-size: 15px; color: #666; line-height: 250%; text-transform: uppercase; letter-spacing: 1.5px;">How
-							does it work</span><br>Burstfly offers you all the latest freebies
-						found all over the fourth corners without to pay.
-					</div>
-				</div>
-				<div id="row-3f">
-					<div class="text-row-3f">
-						<span
-							style="font-weight: 600; font-size: 15px; color: #666; line-height: 250%; text-transform: uppercase; letter-spacing: 1.5px;">Get
-							in touch!</span><br>Subscribe our RSS or follow us on Facebook,
-						Google+, Pinterest or Dribbble to keep updated.
-					</div>
-				</div>
-				<div id="row-4f">
-					<div class="text-row-4f">
-						<span
-							style="font-weight: 600; font-size: 15px; color: #666; line-height: 250%; text-transform: uppercase; letter-spacing: 1.5px;">Newsletter</span><br>You
-						will be informed monthly about the latest content avalaible.
-					</div>
-					<div id="main_tip_newsletter">
-						<form>
-							<input type="text" name="newsletter" id="tip_newsletter_input"
-								list="newsletter" autocomplete=off required>
-						</form>
-					</div>
-				</div>
+				<div class="thank-text">ME</div>
 			</div>
 		</div>
 		<div id="wrapper-copyright">
 			<div class="copyright">
 				<div class="copy-text object">
 					Copyright © 2016. Template by <a style="color: #D0D1D4;"
-						href="http://designscrazed.org/">Dcrazed</a>
+						href="https://dcrazed.com/">Dcrazed</a>
 				</div>
+
 				<div class="wrapper-navbouton">
-					<div class="google object">g</div>
-					<div class="facebook object">f</div>
-					<div class="linkin object">i</div>
-					<div class="dribbble object">d</div>
+					<a href="https://plus.google.com/u/0/105120990146838786351">
+					<div class="facebook object"><i class="fa fa-google-plus-official" aria-hidden="true"></i></div>
+					</a> 
+					<a href="https://www.linkedin.com/in/%EC%84%B1%EC%88%98-%EC%9D%B4-589582126/">
+					<div class="facebook object"><i class="fa fa-linkedin-square" aria-hidden="true"></i></div>
+					</a> 
+					<a href="https://www.youtube.com/channel/UCPcgjmoBF7FcSfRXgsFCXtQ">
+					<div class="facebook object"><i class="fa fa-youtube-play" aria-hidden="true"></i></div>
+					</a>
+					<a href="https://github.com/Soo92">
+					<div class="facebook object"><i class="fa fa-github" aria-hidden="true"></i></div>
+					</a> 
 				</div>
 			</div>
 		</div>
@@ -1407,28 +1290,40 @@ textarea.placeholder {
 		src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="js/jquery.localScroll.min.js"></script>
-	<script type="text/javascript"
-		src="js/jquery-animate-css-rotate-scale.js"></script>
+	<script type="text/javascript" src="js/jquery-animate-css-rotate-scale.js"></script>
 	<script type="text/javascript" src="js/fastclick.min.js"></script>
 	<script type="text/javascript" src="js/jquery.flip.min.js"></script>
 	<script type="text/javascript" src="js/jquery.animate-colors-min.js"></script>
 	<script type="text/javascript" src="js/jquery.animate-shadow-min.js"></script>
+	<script type="text/javascript" src="jquery.loupe.min.js"></script>
 	<script>
-	
-	
 $(document).ready(function() {
 		$.localScroll();
 		$(".cache").delay(1000).fadeOut(500);
-		
 		$("#wrapper-header").delay(1500).animate({opacity:'1',width:'100%'},500);
 		$("#wrapper-navbar").delay(2000).animate({opacity:'1',height:'60px'},500);
-		
 		$("#main-container-image").delay(2500).animate({opacity:'1'},500);
-		
 	});
 /*TRANSITION PAGE*/
 var speed = 'slow';
+
+console.log($('.part-info-image-single > img'));
+$('.part-info-image-single > img').click(function () {
+	console.log($(this));
+	var prev = $(this).attr("src");
+	$('#demo-0').attr("src",prev);
+	$('.loupe > img').attr("src",prev);
+	$('.loupe > img').css("zoom", "130%")
+})
+
 $('html, body').hide();
+$('#demo-0').loupe({
+	width: 1000, // width of magnifier
+	height: 700, // height of magnifier
+    loupe: 'loupe' // css class for magnifier
+});
+
+
 $(document).ready(function() {
     $('html, body').fadeIn(speed, function() {
         $('a[href], button[href]').click(function(event) {
@@ -1636,8 +1531,7 @@ $(document).on('touchstart mouseover', '#logo', function(event){
         event.stopPropagation();
         event.preventDefault();
         if(event.handled !== true) {
-			
-			   $("#logo").stop().animate({scale:'1.1',opacity:'0.5'},300);	
+		   $("#logo").stop().animate({scale:'1.1',opacity:'0.5'},300);	
             event.handled = true;
         } else {
             return false;
@@ -1655,8 +1549,8 @@ $(document).on('touchend mouseout', '#logo', function(event){
             return false;
         }
 });
+
 /*FORMULAIRE NEWSLETTER*/
-	
 $("form").on("submit", function(event) {
   event.preventDefault();
   $.post("/burstfly/form-burstfly-modified.asp",$("form").serialize(), function(data) {//alert(data);

@@ -21,7 +21,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="icon" type="image/png" href="img/small-logo-01.png">
-<link href='http://fonts.googleapis.com/css?family=Roboto:400,900,900italic,700italic,700,500italic,400italic,500,300italic,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,900,900italic,700italic,700,500italic,400italic,500,300italic,300' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 <style>
 /*-------------------------*/
@@ -1306,15 +1306,22 @@ $(document).ready(function() {
 	});
 /*TRANSITION PAGE*/
 var speed = 'slow';
+var i=0;
 
-console.log($('.part-info-image-single > img'));
 $('.part-info-image-single > img').click(function () {
 	console.log($(this));
 	var prev = $(this).attr("src");
 	$('#demo-0').attr("src",prev);
 	$('.loupe > img').attr("src",prev);
-	$('.loupe > img').css("zoom", "130%")
-})
+	$('.loupe > img').css("zoom", "110%");
+});
+
+function zoom() {
+	console.log($('.loupe > img'));
+	i+=30;
+	$('.loupe > img').css("zoom",((110+i)+"%"));
+	if(i>0) i=-30;
+};
 
 $('html, body').hide();
 $('#demo-0').loupe({
@@ -1322,7 +1329,7 @@ $('#demo-0').loupe({
 	height: 700, // height of magnifier
     loupe: 'loupe' // css class for magnifier
 });
-
+$(".loupe").attr('onclick', 'zoom()');
 
 $(document).ready(function() {
     $('html, body').fadeIn(speed, function() {

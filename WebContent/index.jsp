@@ -1,7 +1,6 @@
 <%@page import="index.IndexBean"%>
 <%@page import="java.util.Vector"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <jsp:useBean id="mgr" class="index.IndexMgr" />
 <%
 	Vector<IndexBean> vlist = mgr.getCartList();
@@ -10,6 +9,10 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+<script>
+	if(location.href.indexOf("https")<0)
+		location.href="https://leeseongsu.com"
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ME - Lee Seong Soo</title>
 <!-- Behavioral Meta Data -->
